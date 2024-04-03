@@ -1,0 +1,12 @@
+prod:
+  search_url_prefix: https://prod.host.name/search
+  dip_url_prefix: https://prod.host.name/dips
+  dip_root: /mnt/dips-prod
+  id_list: /mnt/json/prod.txt
+  json_root: /mnt/json/prod
+test:
+  search_url_prefix: https://test.host.name/search
+  dip_url_prefix: https://test.host.name/dips
+  dip_root: /mnt/dips-test
+  id_list: /mnt/json/test.txt
+  json_root: /mnt/json/test

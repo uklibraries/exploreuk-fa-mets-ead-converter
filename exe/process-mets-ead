@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+APPROOT = File.expand_path("..", __dir__)
+base_path = File.join(APPROOT, "lib")
+if File.exist?(base_path)
+  $LOAD_PATH.unshift(base_path)
+end
+
+require 'optimist'
+require 'logger'
+require 'pairtree'
+require 'parallel'
+require 'yaml'
+
+require 'helpers'
+require 'component'
+require 'findingaid_model'
+
+opts = Optimist::options do
+  opt :environment, "Environment (prod or test)", default: "test"
+  opt :id, "Document to process (leave blank to process all)", type: :string
+  opt :log, "Error log", type: :string
+end
+
+if opts[:log].nil?
+  log = Logger.new(STDERR)
+else
+  log = Logger.new(opts[:log])
+end
+
+unless ["prod", "test"].include? opts[:environment]
+  log.error("invalid environment specified")
+  exit
+end
+
+config = get_config[opts[:environment]]
+
+if opts[:id].nil?
+  id_list = config["id_list"]
+  unless File.exist? id_list
+    log.error("id list #{id_list} does not exist")
+    exit
+  end
+  ids = File.readlines(id_list, chomp: true)
+else
+  ids = [opts[:id]]
+end
+
+dip_root = config["dip_root"]
+unless File.exist?(dip_root) and File.directory?(dip_root)
+  log.error("DIP store #{dip_root} does not exist")
+  exit
+end
+diptree = Pairtree.at(dip_root, create: false)
+
+json_root = config["json_root"]
+unless File.exist?(json_root) and File.directory?(json_root)
+  log.error("JSON store #{json_root} does not exist")
+  exit
+end
+jsontree = Pairtree.at(json_root, create: false)
+
+Parallel.each(ids) do |id|
+  log.info("processing #{id}")
+  begin
+    dip = diptree[id]
+    fm = FindingaidModel.new(dip, config)
+    begin
+      fm.process
+      obj = jsontree.mk(id)
+      obj.open(id, 'w') do |io|
+        io.write(fm.to_json)
+      end
+    rescue => e
+      log.error("error processing #{id} =====")
+      log.error(e.message)
+      log.error(e.backtrace.join("\n"))
+    end
+  rescue => e
+    log.error("error processing #{id} =====")
+    log.error(e.message)
+    log.error(e.backtrace.join("\n"))
+  end
+end
