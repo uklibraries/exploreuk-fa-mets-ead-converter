@@ -92,7 +92,7 @@ class FindingaidModel
           date: collect_ead('//archdesc/did/unitdate'),
           creator: collect_ead('//archdesc/did/origination/persname'),
           extent: collect_ead('//archdesc/did/physdesc/extent'),
-          subjects: collect_ead('//archdesc/controlaccess/subject'),
+          subjects: subjects,
           arrangement: collect_ead('//archdesc/arrangement/p'),
           finding_aid_author: collect_ead('//filedesc/titlestmt/author'),
           preferred_citation: collect_ead('//archdesc/prefercite/p'),
@@ -136,6 +136,11 @@ class FindingaidModel
     node.xpath(CPATH).collect do |component|
       Component.new(component).metadata
     end
+  end
+
+  def subjects
+    path = xmlnspath('//archdesc/controlaccess/subject')
+    @ead.xpath(path).collect(&:content)
   end
 
   def collect_ead(path, **options)
