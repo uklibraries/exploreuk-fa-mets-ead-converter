@@ -7,6 +7,10 @@ in
 [ExploreUK](https://exploreuk.uky.edu) as developed by people at the
 [University of Kentucky Libraries](https://libraries.uky.edu) (UKL).
 
+## Metadata mapping
+
+[Overview of METS, EAD, and the mapping to JSON](docs/mapping.md)
+
 ## Usage
 
 Once installed, run within working directory with `bundle exec ruby exe/process-mets-ead`.
