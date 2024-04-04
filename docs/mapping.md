@@ -179,7 +179,9 @@ A component in a collection can have subcomponents, and the value of
 the `subcomponents` field is an array of entries corresponding to those
 subcomponents, recursively.
 
-A component can have one or more container lists. These are listed in the
+A component can have one or more
+[container](https://loc.gov/ead/tglib/elements/container.html)
+lists. These are listed in the
 `container_lists` field. A container list should have the following fields:
 
 * `id`
