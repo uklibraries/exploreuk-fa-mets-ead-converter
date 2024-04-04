@@ -52,7 +52,7 @@ class FindingaidModel
 
   def preanalyze_mets
     @file_hash = {}
-    @mets.xpath('//mets:file[@USE="thumbnail" or @USE="reference image"]', @mets_namespaces).each do |file|
+    @mets.xpath('//mets:file', @mets_namespaces).each do |file|
       id = file['ID']
       flocat = file.xpath('mets:FLocat', @mets_namespaces).first
       @file_hash[id] = {
