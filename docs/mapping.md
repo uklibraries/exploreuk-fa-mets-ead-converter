@@ -112,9 +112,9 @@ in the `fileSec`.
 ## EAD
 
 Our finding aid collections in ExploreUK generally have an [EAD](https://loc.gov/ead/) file.
-Sometimes finding aid collections get deliberately processed without EADs. These decisions
-are made by content managers. Such collections are out of scope for the finding aid viewer
-and decidedly out of scope for this documentation.
+Content managers decide whether to process specific collections with or without EADs.
+The finding aid viewer and the METS + EAD &rarr; JSON converter only handle
+collections which have both METS and EAD.
 
 As of April 2024, we continue to use the EAD 2002 standard.
 
