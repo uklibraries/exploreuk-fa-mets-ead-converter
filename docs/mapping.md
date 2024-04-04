@@ -200,18 +200,30 @@ digitized object. Example:
   [
     [
       {
-        "id": "xt734t6f3d29_1_1_thumbnail",
+        "id": "xt734t6f3d29_115_1_thumbnail",
         "use": "thumbnail",
         "mimetype": "image/jpeg",
-        "href": "1997av027/Box_1/Item_1/1997av027_0001_tb.jpg"
+        "href": "1997av027/Box_2/Item_115/1997av027_0115_tb.jpg"
       },
       {
-        "id": "xt734t6f3d29_1_1_reference_image",
+        "id": "xt734t6f3d29_115_1_front_thumbnail",
+        "use": "front thumbnail",
+        "mimetype": "image/jpeg",
+        "href": "1997av027/Box_2/Item_115/1997av027_0115_ftb.jpg"
+      },
+      {
+        "id": "xt734t6f3d29_115_1_reference_image",
         "use": "reference image",
         "mimetype": "image/jpeg",
-        "href": "1997av027/Box_1/Item_1/1997av027_0001.jpg"
+        "href": "1997av027/Box_2/Item_115/1997av027_0115.jpg"
+      },
+      {
+        "id": "xt734t6f3d29_115_1_print_image",
+        "use": "print image",
+        "mimetype": "application/pdf",
+        "href": "1997av027/Box_2/Item_115/1997av027_0115.pdf"
       }
     ]
   ]
-],
+]
 ```
